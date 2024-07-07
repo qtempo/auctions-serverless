@@ -1,0 +1,35 @@
+service: auctions-notification-service
+frameworkVersion: "3"
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: nodejs20.x
+  memorySize: 128
+  stage: ${opt:stage, 'dev'}
+  iamRoleStatements:
+    - ${file(infra/iam/SendMailIAM.yml):SendMailIAM}
+
+resources:
+  Resources:
+    MailQueue: ${file(infra/resources/MailQueue.yml):MailQueue}
+  Outputs:
+    MailQueueArn: ${file(infra/resources/MailQueue.yml):Outputs.MailQueueArn}
+    MailQueueUrl: ${file(infra/resources/MailQueue.yml):Outputs.MailQueueUrl}
+
+functions:
+  sendMail:
+    handler: src/handlers/sendMail.handler
+    events:
+      - sqs:
+          arn: ${self:custom.MailQueue.arn}
+          batchSize: 1
+
+custom:
+  MailQueue:
+    name: MailQueue-${self:provider.stage}
+    arn: !GetAtt MailQueue.Arn
+    url: !Ref MailQueue

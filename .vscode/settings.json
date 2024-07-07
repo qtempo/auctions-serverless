@@ -1,0 +1,12 @@
+{
+  "cSpell.words": [
+    "esbuild",
+    "nonblock",
+    "qtempo"
+  ],
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+}

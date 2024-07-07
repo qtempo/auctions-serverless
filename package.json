@@ -1,0 +1,12 @@
+{
+  "name": "auctions-serverless",
+  "version": "1.0.0",
+  "license": "ISC",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@stylistic/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^7.15.0"
+  }
+}
