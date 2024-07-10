@@ -3,10 +3,6 @@ import { APIGatewayProxyResult } from 'aws-lambda'
 import { LambdaError } from './lambda.error'
 
 export class Utils {
-  public static parseEventBody<T>(eventBody: string | null | undefined): T {
-    return JSON.parse(eventBody ?? '{}')
-  }
-
   public static response(statusCode: number, body: string | { [k: string]: any }): APIGatewayProxyResult {
     return {
       statusCode,
